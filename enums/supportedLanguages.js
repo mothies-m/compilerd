@@ -9,4 +9,8 @@ module.exports = {
     PROMPTV2: 'promptv2',
     MULTIFILE: 'multifile',
     SQLITE3: 'sqlite3',
+    // Added 3 lang (GO, RUST, Swift)
+    GO: 'go',
+    RUST: 'rust',
+    SWIFT: 'swift',
 }
