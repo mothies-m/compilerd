@@ -298,6 +298,260 @@ const testCases = [
             error: 0,
         },
     },
+        // Added 3 languages testCases (GO, RUST, PHP)
+    {
+        name: 'go : hello world',
+        reqObject: {
+            language: 'go',
+            script:
+                'package main\n' +
+                'import "fmt"\n' +
+                'func main() {\n' +
+                '    fmt.Println("hello world")\n' +
+                '}',
+        },
+        expectedResponse: {
+            val: 'hello world\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'go : print stdin',
+        reqObject: {
+            language: 'go',
+            script:
+                'package main\n' +
+                'import (\n' +
+                '    "bufio"\n' +
+                '    "fmt"\n' +
+                '    "os"\n' +
+                ')\n' +
+                'func main() {\n' +
+                '    scanner := bufio.NewScanner(os.Stdin)\n' +
+                '    for scanner.Scan() {\n' +
+                '        fmt.Println(scanner.Text())\n' +
+                '    }\n' +
+                '}',
+            stdin: '1 2 3\n',
+        },
+        expectedResponse: {
+            val: '1 2 3\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'rust : hello world',
+        reqObject: {
+            language: 'rust',
+            script:
+                'fn main() {\n' +
+                '    println!("hello world");\n' +
+                '}',
+        },
+        expectedResponse: {
+            val: 'hello world\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'rust : print stdin',
+        reqObject: {
+            language: 'rust',
+            script:
+                'use std::io::{self, BufRead};\n' +
+                'fn main() {\n' +
+                '    let stdin = io::stdin();\n' +
+                '    for line in stdin.lock().lines() {\n' +
+                '        println!("{}", line.unwrap());\n' +
+                '    }\n' +
+                '}',
+            stdin: '1 2 3\n',
+        },
+        expectedResponse: {
+            val: '1 2 3\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'swift : hello world',
+        reqObject: {
+            language: 'swift',
+            script:
+                'print("hello world")',
+        },
+        expectedResponse: {
+            val: 'hello world\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'swift : print stdin',
+        reqObject: {
+            language: 'swift',
+            script:
+                'import Foundation\n' +
+                'if let input = readLine() {\n' +
+                '    print(input)\n' +
+                '}',
+            stdin: '1 2 3\n',
+        },
+        expectedResponse: {
+            val: '1 2 3\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    // Some Casees
+    {
+        name: 'cpp : empty program',
+        reqObject: {
+            language: 'cpp',
+            script: '',
+        },
+        expectedResponse: {
+            val: '',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'cpp : infinite loop',
+        reqObject: {
+            language: 'cpp',
+            script:
+                '#include <iostream>\n' +
+                'int main() {\n' +
+                '    while(true) {}\n' +
+                '    return 0;\n' +
+                '}',
+        },
+        expectedResponse: {
+            val: '',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'python : empty program',
+        reqObject: {
+            language: 'python',
+            script: '',
+        },
+        expectedResponse: {
+            val: '',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'python : division by zero',
+        reqObject: {
+            language: 'python',
+            script:
+                'try:\n' +
+                '    result = 1 / 0\n' +
+                'except ZeroDivisionError as e:\n' +
+                '    print("Error:", str(e))\n',
+        },
+        expectedResponse: {
+            val: 'Error: division by zero\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'java : empty program',
+        reqObject: {
+            language: 'java',
+            script: '',
+        },
+        expectedResponse: {
+            val: '',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'java : stack overflow',
+        reqObject: {
+            language: 'java',
+            script:
+                'public class Main {\n' +
+                '    public static void main(String[] args) {\n' +
+                '        main(args);\n' +
+                '    }\n' +
+                '}',
+        },
+        expectedResponse: {
+            val: '',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'nodejs : empty program',
+        reqObject: {
+            language: 'nodejs',
+            script: '',
+        },
+        expectedResponse: {
+            val: '',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'nodejs : async function',
+        reqObject: {
+            language: 'nodejs',
+            script:
+                'async function main() {\n' +
+                '    return new Promise((resolve, reject) => {\n' +
+                '        setTimeout(() => resolve("Async function completed"), 100);\n' +
+                '    });\n' +
+                '}\n' +
+                'main().then(console.log);',
+        },
+        expectedResponse: {
+            val: 'Async function completed\n',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'ruby : empty program',
+        reqObject: {
+            language: 'ruby',
+            script: '',
+        },
+        expectedResponse: {
+            val: '',
+            status: 200,
+            error: 0,
+        },
+    },
+    {
+        name: 'ruby : file read error',
+        reqObject: {
+            language: 'ruby',
+            script:
+                'begin\n' +
+                '    File.open("non_existing_file.txt")\n' +
+                'rescue Errno::ENOENT => e\n' +
+                '    puts "File not found: #{e.message}"\n' +
+                'end',
+        },
+        expectedResponse: {
+            val: 'File not found: No such file or directory @ rb_sysopen - non_existing_file.txt\n',
+            status: 200,
+            error: 0,
+        },
+    },
 ]
 
 module.exports = { testCases }
