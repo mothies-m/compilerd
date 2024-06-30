@@ -51,6 +51,29 @@ const LANGUAGES_CONFIG = {
     [PROMPTV2]: {
         model: 'gpt-3.5-turbo-1106',
     },
+
+    // Added 3 support languages (GO, RUST, C#)
+    [GO]: {
+        compile: 'go build -o solution solution.go',
+        run: './solution',
+        timeout: 5,
+        filename: 'solution.go',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+    [RUST]: {
+        compile: 'rustc -o solution solution.rs',
+        run: './solution',
+        timeout: 5,
+        filename: 'solution.rs',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+    [Swift]: {
+        compile: 'swiftc -o solution solution.swift',
+        run: './solution',
+        timeout: 5,
+        filename: 'solution.swift',
+        memory: 'ALLOWED_RAM * ONE_MB',
+    },
 }
 
 module.exports = { LANGUAGES_CONFIG }
