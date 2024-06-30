@@ -67,7 +67,7 @@ const LANGUAGES_CONFIG = {
         filename: 'solution.rs',
         memory: ALLOWED_RAM * ONE_MB,
     },
-    [Swift]: {
+    [SWIFT]: {
         compile: 'swiftc -o solution solution.swift',
         run: './solution',
         timeout: 5,
